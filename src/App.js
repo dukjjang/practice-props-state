@@ -1,16 +1,10 @@
 import { useState } from "react";
 import "./App.css";
+import Places from "./component/Places";
 
 function App() {
   const [place, setPlace] = useState("");
-  const [places, setPlaces] = useState([
-    "한강",
-    "홍제천",
-    "서울숲",
-    "경의선숲길",
-    "경복궁둘레길",
-    "올림픽공원",
-  ]);
+  const [places, setPlaces] = useState(["서울숲", "경의선숲길", "한강공원"]);
   const [location, setLocation] = useState("");
   const onChange = (event) => {
     setPlace(event.target.value);
@@ -18,23 +12,18 @@ function App() {
   const onSearchChange = (event) => {
     setLocation(event.target.value);
   };
-
   const onSubmit = (event) => {
     event.preventDefault();
-
     if (place === "") {
       return;
     }
-
     setPlaces((prev) => [place, ...prev]);
-
     setPlace("");
   };
+  const filteredArray = places.filter((place) => location === place);
   const onSearch = (event) => {
     event.preventDefault();
-    setPlaces(places.filter((place) => location === place));
   };
-
   const onDelete = (idx) => {
     setPlaces(places.filter((place, placeIndex) => idx !== placeIndex));
   };
@@ -61,16 +50,10 @@ function App() {
           <button className="btn">검색</button>
         </form>
       </div>
-
-      <ul>
-        {places.map((place, idx) => {
-          return (
-            <li key={idx}>
-              {place} <button onClick={() => onDelete(idx)}>X</button>
-            </li>
-          );
-        })}
-      </ul>
+      <Places
+        places={location.length > 0 ? filteredArray : places}
+        onDelete={onDelete}
+      />
     </div>
   );
 }
