@@ -3,7 +3,14 @@ import "./App.css";
 
 function App() {
   const [place, setPlace] = useState("");
-  const [places, setPlaces] = useState([]);
+  const [places, setPlaces] = useState([
+    "한강",
+    "홍제천",
+    "서울숲",
+    "경의선숲길",
+    "경복궁둘레길",
+    "올림픽공원",
+  ]);
   const [location, setLocation] = useState("");
   const onChange = (event) => {
     setPlace(event.target.value);
